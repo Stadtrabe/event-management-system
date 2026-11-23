@@ -1,0 +1,29 @@
+:root {
+    --primary-color: #D4AF37;
+    --background-color: #FFFFFF;
+    --text-color: #212529;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.custom-navbar {
+    background-color: #212529;
+}
+
+.navbar-brand {
+    color: #D4AF37 !important;
+}
+
+.btn-gold {
+    background-color: #D4AF37;
+    border-color: #D4AF37;
+    color: #212529;
+}
+
+.btn-gold:hover {
+    background-color: #b9962f;
+    border-color: #b9962f;
+}
