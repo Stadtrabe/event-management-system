@@ -1,0 +1,15 @@
+# VS Code Einstellungen
+.vscode/
+
+# Composer Abhängigkeiten
+/vendor/
+
+# Umgebungsdateien
+.env
+
+# Log-Dateien
+*.log
+
+# Betriebssystem-Dateien
+.DS_Store
+Thumbs.db
