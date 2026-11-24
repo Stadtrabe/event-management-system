@@ -37,20 +37,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
 
-    $stmt = $pdo->prepare(
-        "SELECT user_id
-        FROM users
-        WHERE email = :email"
-    );
+        $stmt = $pdo->prepare(
+            "SELECT user_id
+            FROM users
+            WHERE email = :email"
+        );
 
-    $stmt->execute([
-        'email' => $email
-    ]);
+        $stmt->execute([
+            'email' => $email
+        ]);
 
-    if ($stmt->fetch()) {
-        $errors[] = 'Diese E-Mail-Adresse ist bereits registriert.';
+        if ($stmt->fetch()) {
+            $errors[] = 'Diese E-Mail-Adresse ist bereits registriert.';
+        }
     }
-}
+
+    if (empty($errors)) {
+
+        $passwordHash = password_hash(
+            $password,
+            PASSWORD_DEFAULT
+        );
+
+        $stmt = $pdo->prepare(
+            "INSERT INTO users
+            (
+                username,
+                email,
+                password_hash,
+                role,
+                status
+            )
+            VALUES
+            (
+                :username,
+                :email,
+                :password_hash,
+                :role,
+                :status
+            )"
+        );
+
+        $stmt->execute([
+            'username' => $username,
+            'email' => $email,
+            'password_hash' => $passwordHash,
+            'role' => 'user',
+            'status' => 'Prüfung'
+        ]);
+    
+        header('Location: login.php?registered=1');
+        exit;
+    }
+
 }
 
 require_once __DIR__ . '/../layout/header.php';
@@ -90,8 +129,8 @@ require_once __DIR__ . '/../layout/header.php';
                 id="username"
                 name="username"
                 class="form-control"
-                value="<?= htmlspecialchars($username ?? '') ?>">
-                <!-- required> -->
+                value="<?= htmlspecialchars($username ?? '') ?>"
+                required>
         </div>
 
         <div class="mb-3">
@@ -104,8 +143,8 @@ require_once __DIR__ . '/../layout/header.php';
                 id="email"
                 name="email"
                 class="form-control"
-                value="<?= htmlspecialchars($email ?? '') ?>">
-                <!-- required> -->
+                value="<?= htmlspecialchars($email ?? '') ?>"
+                required>
         </div>
 
         <div class="mb-3">
@@ -117,8 +156,8 @@ require_once __DIR__ . '/../layout/header.php';
                 type="password"
                 id="password"
                 name="password"
-                class="form-control">
-                <!-- required> -->
+                class="form-control"
+                required>
         </div>
 
         <div class="mb-3">
@@ -130,8 +169,8 @@ require_once __DIR__ . '/../layout/header.php';
                 type="password"
                 id="password_confirm"
                 name="password_confirm"
-                class="form-control">
-                <!-- required> -->
+                class="form-control"
+                required>
         </div>
 
         <button

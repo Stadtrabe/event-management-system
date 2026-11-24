@@ -10,20 +10,29 @@ body {
 }
 
 .custom-navbar {
-    background-color: #212529;
+    background-color: var(--text-color);
 }
 
 .navbar-brand {
-    color: #D4AF37 !important;
+    color: var(--primary-color) !important;
 }
 
 .btn-gold {
-    background-color: #D4AF37;
-    border-color: #D4AF37;
-    color: #212529;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--text-color);
 }
 
 .btn-gold:hover {
     background-color: #b9962f;
     border-color: #b9962f;
+}
+
+.nav-profil {
+    font-weight: bold;
+    color: var(--primary-color) !important;
+}
+
+.nav-profil-icon {
+    color: var(--primary-color);
 }
