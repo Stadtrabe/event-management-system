@@ -6,14 +6,14 @@ require_once __DIR__ . '/env.php';
 
 $host = $env['DB_HOST'];
 $dbname = $env['DB_NAME'];
-$username = $env['DB_USER'];
-$password = $env['DB_PASSWORD'];
+$dbusername = $env['DB_USER'];
+$dbpassword = $env['DB_PASSWORD'];
 
 try {
     $pdo = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-        $username,
-        $password
+        $dbusername,
+        $dbpassword
     );
     $pdo->setAttribute(
         PDO::ATTR_ERRMODE,

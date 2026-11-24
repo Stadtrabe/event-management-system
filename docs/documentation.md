@@ -4,257 +4,340 @@
 
 Event Management System
 
+Lernprojekt:
+Umschunlung zum Fachinformatiker für Anwendungsentwicklung
+
+© 11/2026 Frederick Mäueler
+
 ## Zweck dieses Dokuments
 
-Dieses Dokument beschreibt die Struktur des Projekts sowie die Aufgaben der einzelnen Dateien und Verzeichnisse. Ziel ist eine übersichtliche und wartbare Projektarchitektur.
+Dieses Dokument beschreibt die Architektur, Verzeichnisstruktur sowie die Aufgaben der einzelnen Komponenten des Event Management Systems.
+
+Die Anwendung basiert auf dem MVC-Architekturmuster (Model-View-Controller), um eine klare Trennung zwischen Datenzugriff, Anwendungslogik und Darstellung zu gewährleisten.
+
+---
+
+# Architektur
+
+## MVC-Prinzip
+
+Das Projekt verwendet das Model-View-Controller-Muster (MVC).
+
+### Model
+
+Models verwalten den Datenzugriff und die Geschäftslogik.
+
+### View
+
+Views enthalten die Benutzeroberfläche und die Darstellung der Daten.
+
+### Controller
+
+Controller steuern die Geschäftslogik und verarbeiten Benutzereingaben.
 
 ---
 
 # Projektstruktur
 
-# Verzeichnisse
-
-## admin/
-
-Enthält alle Verwaltungsfunktionen für Administratoren.
-
-Geplante Inhalte:
-
-- Benutzerverwaltung
-- Rollenverwaltung
-- Veranstaltungsverwaltung
-- Statistiken und Dashboard
+```text
+event-management-system
+│   .env
+│   .gitignore
+│   index.php
+│   README.md
+│   test_db.php
+│   
+├───admin
+├───assets
+│   ├───css
+│   │       style.css
+│   │       
+│   └───js
+│           main.js
+│           
+├───config
+│       database.php
+│       env.php
+│       
+├───controllers
+│       AdminController.php
+│       AuthControllers.php
+│       EventControllers.php
+│       UserControllers.php
+│       
+├───docs
+│       database_ERD.png
+│       documentation.md
+│       schema.sql
+│       
+├───includes
+│       footer.php
+│       header.php
+│       
+├───models
+│       Event.php
+│       EventRegistration.php
+│       Interest.php
+│       User.php
+│       
+├───pages
+└───views
+    ├───admin
+    │       dashboard.php
+    │       
+    ├───auth
+    │       login.php
+    │       register.php
+    │       
+    ├───events
+    └───user
+            events.php
+```
 
 ---
+
+# Verzeichnisse
 
 ## assets/
 
 Enthält statische Dateien.
 
-### css/
+### assets/css/
 
-Speichert eigene Stylesheets.
+Eigene Stylesheets zur Erweiterung und Anpassung von Bootstrap.
 
-### js/
+### assets/js/
 
-Speichert JavaScript-Dateien für zukünftige Erweiterungen.
-Ob es genutzt wird, steht noch nicht fest.
+JavaScript-Dateien für zukünftige Erweiterungen.
 
 ---
 
 ## config/
 
-Enthält Konfigurationsdateien der Anwendung.
+Enthält Konfigurationsdateien.
+
+### Aufgaben
 
 - Datenbankverbindung
 - Umgebungsvariablen
+- Zentrale Konfiguration
+
+---
+
+## controllers/
+
+Enthält die Controller der Anwendung.
+
+### AuthController
+
+Verantwortlich für:
+
+- Registrierung
+- Login
+- Logout
+
+### UserController
+
+Verantwortlich für:
+
+- Benutzerprofil
+- Eigene Event-Anmeldungsmarkierungen
+- Eigene Event-Interessensmarkierungen
+
+### EventController
+
+Verantwortlich für:
+
+- Eventliste
+- Eventdetails
+- Eventverwaltung
+- Event-Anmeldungsmarkierungen
+- Event-Interessenmarkierungen
+
+### AdminController
+
+Verantwortlich für:
+
+- Dashboard
+- Benutzerverwaltung
+- Rollenverwaltung
+- Verwaltungsfunktionen
 
 ---
 
 ## docs/
 
-Enthält Projektdokumentation
+Enthält Projektdokumentation.
 
 ---
 
-## includes/
+## models/
 
-Enthält wiederverwendbare Codebestandteile, die in mehreren Seiten genutzt werden.
+Enthält den Datenzugriff der Anwendung.
 
-- Kopfbereich der Webseite
-- Fußbereich der Webseite
+### User.php
 
----
+Verwaltung von Benutzerdaten.
 
-## pages/
+Funktionen:
 
-Enthält die eigentlichen Anwendungsseiten.
+- Benutzer suchen
+- Benutzer anlegen
+- Rollen verwalten
 
-Beispiele:
+### Event.php
 
-- Registrierung
-- Login
-- Veranstaltungsübersicht
-- dashboard
+Verwaltung von Veranstaltungen.
 
----
+Funktionen:
 
-# Dateien
+- Veranstaltungen anlegen
+- Veranstaltungen bearbeiten
+- Veranstaltungen löschen
+- Veranstaltungen anzeigen
 
-## index.php
+### EventRegistration.php
 
-### Aufgabe
+Verwaltung von Event-Anmeldungsmarierungen.
 
-Startseite der Anwendung.
+Funktionen:
 
-### Funktion
+- Anmeldungsmarkierung setrzen
+- Anmeldungsmarkierung entfernen
 
-- Einstiegspunkt für Benutzer
-- Anzeige allgemeiner Informationen
-- Weiterleitung zu wichtigen Bereichen der Anwendung
+### Interest.php
 
----
+Verwaltung von Interessenmarkierungen.
 
-## README.md
+Funktionen:
 
-### Aufgabe
-
-Projektbeschreibung für GitHub.
-
+- Interesse markieren
+- Interessesmarkierung entfernen
 
 ---
 
-## .gitignore
+## views/
 
-### Aufgabe
+Enthält sämtliche Ansichten der Anwendung.
 
-Ausschluss bestimmter Dateien und Verzeichnisse aus der Versionsverwaltung.
+### views/auth/
 
+Authentifizierung.
 
----
-
-## .env
-
-### Aufgabe
-
-Speicherung sensibler Konfigurationsdaten.
-
-
-### Hinweis
-
-Die Datei wird nicht veröffentlicht.
-
----
-
-# Dateien im Verzeichnis config
-
-## database.php
-
-### Aufgabe
-
-Aufbau der Datenbankverbindung.
-
-### Funktion
-
-- Verbindung zu MariaDB herstellen
-- Fehlerbehandlung konfigurieren
-- Standard-Einstellungen für PDO festlegen
-
----
-
-## env.php
-
-### Aufgabe
-
-Einlesen der Umgebungsvariablen aus der .env-Datei.
-
-### Funktion
-
-- Trennung von Quellcode und Zugangsdaten
-- Erhöhung der Sicherheit
-
----
-
-# Dateien im Verzeichnis includes
-
-## header.php
-
-### Aufgabe
-
-Gemeinsamer Kopfbereich aller Seiten.
-
-### Funktion
-
-- HTML-Grundstruktur
-- Bootstrap-Einbindung
-- Navigation (Navbar)
-- Einbindung eigener CSS-Dateien
-
-### Vorteil
-
-Änderungen müssen nur an einer Stelle vorgenommen werden.
-
----
-
-## footer.php
-
-### Aufgabe
-
-Gemeinsamer Seitenabschluss.
-
-### Funktion
-
-- Schließen der HTML-Struktur
-
----
-
-# Dateien im Verzeichnis pages
-
-## register.php
-
-### Aufgabe
-
-Benutzerregistrierung.
-
-### Geplante Funktionen
-
-- Eingabe von Benutzername
-- Eingabe der E-Mail-Adresse
-- Passwortvergabe
-- Passwortbestätigung
-- Speicherung des Benutzers in der Datenbank
-
----
-
-## login.php
-
-### Aufgabe
+#### login.php
 
 Benutzeranmeldung.
 
-### Geplante Funktionen
+#### register.php
 
-- Anmeldung per E-Mail-Adresse
-- Passwortprüfung
-- Start einer Benutzersession
+Benutzerregistrierung.
 
 ---
 
-## events.php
+### views/events/
 
-### Aufgabe
+Veranstaltungsverwaltung und Veranstaltungsübersicht.
 
-Anzeige verfügbarer Veranstaltungen.
+#### list.php
 
-### Geplante Funktionen
+Anzeige aller Veranstaltungen.
 
-- Veranstaltungsübersicht
-- Suchfunktion
-- Anmeldung zu Veranstaltungen
-- Interessenmarkierung
+#### details.php
+
+Anzeige einzelner Veranstaltungsdetails.
+
+#### form.php
+
+Erstellen, Bearbeiten und Löschen von Veranstaltungen.
 
 ---
 
-# Dateien im Verzeichnis assets/css
+### views/user/
 
-## style.css
+Benutzerbezogene Ansichten.
 
-### Aufgabe
+#### profile.php
 
-Anwendungsspezifisches Design.
+Benutzerprofil.
 
-### Funktion
+#### my-events.php
 
-- Definition des Farbkonzepts
-- Anpassung des Bootstrap-Designs
-- Eigene Layout-Elemente
+Eigene Anmeldungen und Interessen.
 
-### Aktuelles Farbkonzept
+---
 
-- Primärfarbe: Gold
-- Hintergrundfarbe: Weiß
-- Kontrast- und Schriftfarbe: Schwarz
-- Bootstrap dient als gestalterische Grundlage
+### views/admin/
+
+Administrationsbereich.
+
+#### dashboard.php
+
+Administrations-Dashboard.
+
+Mögliche Inhalte:
+
+- Anzahl Benutzer
+- Anzahl Organisatoren
+- Anzahl Veranstaltungen
+- Anzahl Anmeldungen
+- Anzahl Interessenmarkierungen
+
+---
+
+### layout/
+
+Enthält wiederverwendbare Layout-Komponenten.
+
+#### header.php
+
+- HTML-Grundstruktur
+- Bootstrap-Einbindung
+- Navigation
+
+#### footer.php
+
+- Abschluss der HTML-Struktur
+
+---
+
+# Rollenmodell
+
+## User
+
+Berechtigungen:
+
+- Registrierung
+- Login
+- Logout
+- Veranstaltungen suchen
+- Veranstaltungen ansehen
+- Interesse markieren
+- Event-Anmeldung markieren
+- Eigene Markierungen anzeigen
+- Profil bearbeiten
+
+---
+
+## Organizer
+
+Zusätzlich zu den User-Funktionen:
+
+- Eigene Veranstaltungen erstellen
+- Eigene Veranstaltungen bearbeiten
+- Eigene Veranstaltungen löschen
+- Teilnehmerlisten einsehen
+
+---
+
+## Admin
+
+Zusätzlich zu allen anderen Funktionen:
+
+- Dashboard verwalten
+- Benutzer verwalten
+- Benutzer sperren
+- Rollen ändern
+- Veranstaltungen verwalten
 
 ---
 
@@ -264,34 +347,53 @@ Anwendungsspezifisches Design.
 
 event_management
 
-### Tabellen
+## Tabellen
 
-#### users
+### users
 
 Speichert Benutzerkonten.
 
-#### events
+### events
 
 Speichert Veranstaltungen.
 
-#### event_registration
+### event_registration
 
 Speichert Veranstaltungsanmeldungen.
 
-#### interests
+### interests
 
 Speichert Interessenmarkierungen von Benutzern.
 
 ---
 
-# Architekturprinzipien
+# Sicherheitskonzept
 
-Die Anwendung basiert auf folgenden Grundprinzipien:
+## Passwortsicherheit
 
-- Trennung von Logik und Darstellung
-- Wiederverwendbarkeit durch Includes
-- Zentrale Datenbankverwaltung
-- Rollenbasierte Zugriffskontrolle
-- Sichere Speicherung von Passwörtern
-- Versionsverwaltung mittels Git und GitHub
+Passwörter werden nicht im Klartext gespeichert.
+
+Zur Speicherung wird die PHP-Funktion
+
+```php
+password_hash()
 ```
+
+verwendet.
+
+Die Überprüfung erfolgt mittels
+
+```php
+password_verify()
+```
+
+---
+
+# Entwicklungswerkzeuge
+
+- PHP 8
+- MariaDB
+- Bootstrap 5
+- Visual Studio Code
+- MySQL Workbench
+- GitHub

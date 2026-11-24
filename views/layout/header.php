@@ -27,15 +27,11 @@
 
         <div class="navbar-nav">
 
-            <a class="nav-link" href="/event-management-system/pages/events.php">
-                Events
-            </a>
-
-            <a class="nav-link" href="/event-management-system/pages/login.php">
+            <a class="nav-link" href="/event-management-system/views/auth/login.php">
                 Login
             </a>
 
-            <a class="nav-link" href="/event-management-system/pages/register.php">
+            <a class="nav-link" href="/event-management-system/views/auth/register.php">
                 Registrierung
             </a>
 

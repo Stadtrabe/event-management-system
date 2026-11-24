@@ -1,5 +1,6 @@
-<?php require_once 'includes/header.php'; ?>
+<!-- http://localhost/event-management-system/index.php -->
 
+<?php require_once __DIR__ . '/views/layout/header.php'; ?>
 <div class="container mt-5">
 
     <h1>Willkommen</h1>
@@ -14,4 +15,4 @@
 
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once __DIR__ . '/views/layout/footer.php'; ?>
