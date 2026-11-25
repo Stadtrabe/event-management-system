@@ -3,9 +3,9 @@
 <div class="container mt-5 text-center">
 
     <img
-        src="/event-management-system/assets/img/pageNotFound.png"
+        src="/event-management-system/assets/img/404_pageNotFound.png"
         alt="404 - Seite nicht gefunden"
-        class="img-fluid mb-4">
+        class="error-image">
 
     <h1>Seite nicht gefunden</h1>
 

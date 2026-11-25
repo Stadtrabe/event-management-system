@@ -58,4 +58,43 @@ class User
             'status' => $status
         ]);
     }
+
+    public function findAll(): array {
+        $stmt = $this->pdo->prepare(
+            "SELECT
+                user_id,
+                username,
+                email,
+                role,
+                status,
+                created_at
+            FROM users
+            ORDER BY user_id ASC"
+        );
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function updateRoleAndStatus(
+        int $userId,
+        string $role,
+        string $status
+    ): bool {
+        $stmt = $this->pdo->prepare(
+            "UPDATE users
+            SET
+                role = :role,
+                status = :status
+            WHERE user_id = :user_id"
+        );
+
+        return $stmt->execute([
+            'role' => $role,
+            'status' => $status,
+            'user_id' => $userId
+        ]);
+    }
+
 }

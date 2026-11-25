@@ -13,3 +13,6 @@
 # Betriebssystem-Dateien
 .DS_Store
 Thumbs.db
+
+# Sonstiges
+/assets/img/source.md

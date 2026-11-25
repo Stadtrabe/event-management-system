@@ -1,5 +1,8 @@
 :root {
     --primary-color: #D4AF37;
+    --primary-hover-color: #b9962f;
+    --primary-light-color: rgba(212, 175, 55, 0.35);
+
     --background-color: #FFFFFF;
     --text-color: #212529;
 }
@@ -24,8 +27,8 @@ body {
 }
 
 .btn-gold:hover {
-    background-color: #b9962f;
-    border-color: #b9962f;
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
 }
 
 .nav-profil {
@@ -35,4 +38,34 @@ body {
 
 .nav-profil-icon {
     color: var(--primary-color);
+}
+
+.error-image {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.event-table thead th {
+    background-color: var(--text-color);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.event-table tbody td {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-bottom: 1px solid var(--primary-light-color);
+}
+
+.event-table tbody tr:hover > td {
+    background-color: var(--primary-hover-color) !important;
+}
+
+.event-table-container {
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    overflow: hidden;
 }

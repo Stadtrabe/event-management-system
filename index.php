@@ -5,10 +5,12 @@ declare(strict_types=1);
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/models/User.php';
 require_once __DIR__ . '/controllers/AuthController.php';
+require_once __DIR__ . '/controllers/AdminController.php';
 
 $userModel = new User($pdo);
 
 $authController = new AuthController($userModel);
+$adminController = new AdminController($userModel);
 
 $page = $_GET['page'] ?? 'home';
 
@@ -31,7 +33,15 @@ switch ($page) {
         break;
 
     case 'admin':
-        require __DIR__ . '/views/admin/dashboard.php';
+        $adminController->dashboard();
+        break;
+
+    case 'admin-users':
+        $adminController->users();
+        break;
+
+    case 'admin-update-user':
+        $adminController->updateUser();
         break;
 
     case 'logout':

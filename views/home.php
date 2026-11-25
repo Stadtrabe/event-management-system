@@ -9,10 +9,6 @@
         Willkommen beim Event Management System.
     </p>
 
-    <button class="btn btn-gold">
-        Testbutton
-    </button>
-
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
