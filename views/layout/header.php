@@ -19,8 +19,10 @@ if (session_status() === PHP_SESSION_NONE) {
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet">
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<!-- Lädt Bootstrap Icons-->
+        <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
     <link
         href="/event-management-system/assets/css/style.css"
         rel="stylesheet">
@@ -32,7 +34,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="container">
 
         <a class="navbar-brand"
-            href="/event-management-system">
+            href="/event-management-system/index.php">
                 Event Management System
         </a>
 
@@ -46,11 +48,11 @@ if (session_status() === PHP_SESSION_NONE) {
         </a>
 
         <a class="nav-link"
-            href="/event-management-system/views/auth/logout.php">
+            href="/event-management-system/index.php?page=logout">
                 Logout
         </a>
 
-        <a class="nav-link nav-profil"
+        <a class="nav-link"
             href="/event-management-system/views/user/profile.php">
                 <i class="bi bi-person-fill nav-profil-icon"></i>
                 <?= htmlspecialchars($_SESSION['username']) ?>
@@ -59,12 +61,12 @@ if (session_status() === PHP_SESSION_NONE) {
     <?php else: ?>
 
         <a class="nav-link"
-            href="/event-management-system/views/auth/login.php">
+            href="/event-management-system/index.php?page=login">
                 Login
         </a>
 
         <a class="nav-link"
-            href="/event-management-system/views/auth/register.php">
+            href="/event-management-system/index.php?page=register">
                 Registrierung
         </a>
 

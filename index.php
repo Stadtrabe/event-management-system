@@ -1,18 +1,45 @@
-<!-- http://localhost/event-management-system/index.php -->
+<?php
 
-<?php require_once __DIR__ . '/views/layout/header.php'; ?>
-<div class="container mt-5">
+declare(strict_types=1);
 
-    <h1>Willkommen</h1>
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/models/User.php';
+require_once __DIR__ . '/controllers/AuthController.php';
 
-    <p>
-        Willkommen beim Event Management System.
-    </p>
+$userModel = new User($pdo);
 
-    <button class="btn btn-gold">
-        Testbutton
-    </button>
+$authController = new AuthController($userModel);
 
-</div>
+$page = $_GET['page'] ?? 'home';
 
-<?php require_once __DIR__ . '/views/layout/footer.php'; ?>
+switch ($page) {
+
+    case 'register':
+        $authController->register();
+        break;
+
+    case 'home':
+        require __DIR__ . '/views/home.php';
+        break;
+    
+    case 'login':
+        $authController->login();
+        break;
+
+    case 'events':
+        require __DIR__ . '/views/events/list.php';
+        break;
+
+    case 'admin':
+        require __DIR__ . '/views/admin/dashboard.php';
+        break;
+
+    case 'logout':
+        $authController->logout();
+        break;
+
+    default:
+        http_response_code(404);
+        require __DIR__ . '/views/errors/404.php';
+        break;
+}
