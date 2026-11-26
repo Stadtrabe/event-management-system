@@ -6,6 +6,8 @@ require_once __DIR__ . '/config/database.php';
 
 require_once __DIR__ . '/models/User.php';
 require_once __DIR__ . '/models/Event.php';
+require_once __DIR__ . '/models/Interest.php';
+require_once __DIR__ . '/models/EventRegistration.php';
 
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
@@ -13,10 +15,16 @@ require_once __DIR__ . '/controllers/EventController.php';
 
 $userModel = new User($pdo);
 $eventModel = new Event($pdo);
+$interestModel = new Interest($pdo);
+$registrationModel = new EventRegistration($pdo);
 
 $authController = new AuthController($userModel);
 $adminController = new AdminController($userModel);
-$eventController = new EventController($eventModel);
+$eventController = new EventController(
+    $eventModel,
+    $interestModel,
+    $registrationModel
+);
 
 $page = $_GET['page'] ?? 'home';
 
@@ -59,6 +67,26 @@ switch ($page) {
     
     case 'event-edit':
         $eventController->edit();
+        break;
+
+    # interests
+
+    case 'event-interest-add':
+        $eventController->addInterest();
+        break;
+
+    case 'event-interest-remove':
+        $eventController->removeInterest();
+        break;
+
+    # registration
+
+    case 'event-register':
+        $eventController->registerForEvent();
+        break;
+
+    case 'event-registration-cancel':
+        $eventController->cancelRegistration();
         break;
 
 # admin control        

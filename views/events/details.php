@@ -1,7 +1,10 @@
 <?php 
 
-# Intelephense false Error
+# Intelephense false Errors
 /** @var array $event */
+/** @var array $isInterested */
+/** @var array $isRegistered */
+
 
 require_once __DIR__ . '/../layout/header.php'; ?>
 
@@ -84,7 +87,109 @@ require_once __DIR__ . '/../layout/header.php'; ?>
 
     </div>
 
-<!-- BUTTONS -->
+    <!-- BUTTONS -->
+    <div class="mt-3 d-flex gap-2 flex-wrap">
+        <?php if ($isRegistered): ?>
+        <button
+            type="button"
+            class="btn btn-outline-secondary"
+            title="Du bist bereits für diese Veranstaltung angemeldet"
+            disabled>
+            <i class="bi bi-star"></i>
+            Interesse
+        </button>
+        <?php elseif (!$isInterested): ?>
+            <form
+                method="POST"
+                action="/event-management-system/index.php?page=event-interest-add"
+                class="d-inline">
+                <input
+                    type="hidden"
+                    name="event_id"
+                    value="<?= (int) $event['event_id'] ?>">
+
+                <input
+                    type="hidden"
+                    name="return_to"
+                    value="details">
+
+                <button
+                    type="submit"
+                    class="btn btn-outline-warning">
+                    <i class="bi bi-star"></i>
+                    Interesse markieren
+                </button>
+            </form>
+        <?php else: ?>
+            <form
+                method="POST"
+                action="/event-management-system/index.php?page=event-interest-remove"
+                class="d-inline">
+                <input
+                    type="hidden"
+                    name="event_id"
+                    value="<?= (int) $event['event_id'] ?>">
+
+                <input
+                    type="hidden"
+                    name="return_to"
+                    value="details">
+
+                <button
+                    type="submit"
+                    class="btn btn-gold">
+                    <i class="bi bi-star-fill"></i>
+                    Interesse entfernen
+                </button>
+            </form>
+        <?php endif; ?>
+
+        <?php if ($isRegistered): ?>
+            <form
+                method="POST"
+                action="/event-management-system/index.php?page=event-registration-cancel">
+                <input
+                    type="hidden"
+                    name="event_id"
+                    value="<?= (int) $event['event_id'] ?>">
+
+                <input
+                    type="hidden"
+                    name="return_to"
+                    value="details">
+
+                <button
+                    type="submit"
+                    class="btn btn-gold"
+                    title="Anmeldung für diese Veranstaltung stornieren">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Anmeldemarkierung entfernen
+                </button>
+            </form>
+        <?php else: ?>
+            <form
+                method="POST"
+                action="/event-management-system/index.php?page=event-register">
+                <input
+                    type="hidden"
+                    name="event_id"
+                    value="<?= (int) $event['event_id'] ?>">
+
+                <input
+                    type="hidden"
+                    name="return_to"
+                    value="details">
+
+                <button
+                    type="submit"
+                    class="btn btn-outline-gold"
+                    title="Für diese Veranstaltung anmelden">
+                    <i class="bi bi-check-circle"></i>
+                    Anmeldung markieren
+                </button>
+            </form>
+        <?php endif; ?>
+    </div>
     <?php
     $isAdmin =
         isset($_SESSION['role']) &&
