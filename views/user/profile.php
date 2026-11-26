@@ -5,4 +5,6 @@
     <h1>Profil</h1>
 </div>
 
+
+
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

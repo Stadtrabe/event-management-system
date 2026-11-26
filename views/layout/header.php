@@ -42,10 +42,19 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <?php if (isset($_SESSION['user_id'])): ?>
 
+        <?php if ($_SESSION['role'] === "admin"): ?>
+            <a class="nav-link"
+                href="/event-management-system/index.php?page=admin">
+                    Admin-Dashboard
+            </a>
+        <?php endif; ?>
+
         <a class="nav-link"
-            href="/event-management-system/views/events/list.php">
+            href="/event-management-system/index.php?page=events">
                 Events
         </a>
+
+<!-- EVENT ERSTELLEN BUTTON -->
 
         <a class="nav-link"
             href="/event-management-system/index.php?page=logout">
@@ -53,7 +62,7 @@ if (session_status() === PHP_SESSION_NONE) {
         </a>
 
         <a class="nav-link"
-            href="/event-management-system/views/user/profile.php">
+            href="/event-management-system/index.php?page=profile">
                 <i class="bi bi-person-fill nav-profil-icon"></i>
                 <?= htmlspecialchars($_SESSION['username']) ?>
         </a>

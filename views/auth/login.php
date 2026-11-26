@@ -1,29 +1,22 @@
 <?php require_once __DIR__ . '/../layout/header.php'; ?>
 
 <?php if (!empty($errors)): ?>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            <?php foreach ($errors as $error): ?>
+                <li><?= htmlspecialchars($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
 
-<div class="alert alert-danger">
-    <ul class="mb-0">
-
-        <?php foreach ($errors as $error): ?>
-            <li><?= htmlspecialchars($error) ?></li>
-        <?php endforeach; ?>
-
-    </ul>
-</div>
-
+<?php if (!empty($successMessage)): ?>
+    <div class="alert alert-success">
+        <?= htmlspecialchars($successMessage) ?>
+    </div>
 <?php endif; ?>
 
 <div class="container mt-5">
-
-    <?php if (!empty($successMessage)): ?>
-
-        <div class="alert alert-success">
-            <?= htmlspecialchars($successMessage) ?>
-        </div>
-
-    <?php endif; ?>
-
     <h1>Anmelden</h1>
 
     <form method="POST">

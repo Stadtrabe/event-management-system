@@ -123,8 +123,6 @@ class AuthController
             }
 
             if (empty($errors) && $user !== false) {
-
-
                 if (!password_verify(
                     $password,
                     $user['password_hash']
@@ -134,8 +132,6 @@ class AuthController
             }
 
             if (empty($errors) && $user !== false) {
-
-
                 $_SESSION['user_id'] = 
                     $user['user_id'];
                 $_SESSION['username'] = 

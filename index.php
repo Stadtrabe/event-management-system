@@ -3,35 +3,65 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/config/database.php';
+
 require_once __DIR__ . '/models/User.php';
+require_once __DIR__ . '/models/Event.php';
+
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
+require_once __DIR__ . '/controllers/EventController.php';
 
 $userModel = new User($pdo);
+$eventModel = new Event($pdo);
 
 $authController = new AuthController($userModel);
 $adminController = new AdminController($userModel);
+$eventController = new EventController($eventModel);
 
 $page = $_GET['page'] ?? 'home';
 
 switch ($page) {
 
-    case 'register':
-        $authController->register();
-        break;
-
     case 'home':
         require __DIR__ . '/views/home.php';
+        break;
+
+# not logged in
+    case 'register':
+        $authController->register();
         break;
     
     case 'login':
         $authController->login();
         break;
 
-    case 'events':
-        require __DIR__ . '/views/events/list.php';
+# logged in
+    case 'logout':
+        $authController->logout();
         break;
 
+    case 'profile':
+        require __DIR__ . '/views/user/profile.php';
+        break;
+
+# events        
+    case 'events':
+        $eventController->list();
+        break;
+
+    case 'event-create':
+        $eventController->create();
+        break;
+
+    case 'event-details':
+        $eventController->details();
+        break;
+    
+    case 'event-edit':
+        $eventController->edit();
+        break;
+
+# admin control        
     case 'admin':
         $adminController->dashboard();
         break;
@@ -42,10 +72,6 @@ switch ($page) {
 
     case 'admin-update-user':
         $adminController->updateUser();
-        break;
-
-    case 'logout':
-        $authController->logout();
         break;
 
     default:

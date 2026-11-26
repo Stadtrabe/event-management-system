@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/../layout/header.php'; ?>
 
-<div class="container mt-5">
+<div class="container mt-4">
 
     <h1>Benutzerverwaltung</h1>
 
@@ -50,71 +50,85 @@
                                 <?= htmlspecialchars($user['email']) ?>
                             </td>
 
-                            <td>
-                                <select
-                                    name="role"
-                                    class="form-select form-select-sm"
-                                    form="<?= $formId ?>">
+                            <?php if ((int) $user['user_id'] === (int) $_SESSION['user_id']): ?>
+                                <td>
+                                    <?= htmlspecialchars($user['role']) ?>
+                                </td>
 
-                                    <option
-                                        value="user"
-                                        <?= $user['role'] === 'user' ? 'selected' : '' ?>>
-                                        User
-                                    </option>
+                                <td>
+                                    <?= htmlspecialchars($user['status']) ?>
+                                </td>
+                            
+                            <?php else: ?>
 
-                                    <option
-                                        value="organizer"
-                                        <?= $user['role'] === 'organizer' ? 'selected' : '' ?>>
-                                        Organizer
-                                    </option>
+                                <td>
+                                    <select
+                                        name="role"
+                                        class="form-select form-select-sm"
+                                        form="<?= $formId ?>">
 
-                                    <option
-                                        value="admin"
-                                        <?= $user['role'] === 'admin' ? 'selected' : '' ?>>
-                                        Admin
-                                    </option>
+                                        <option
+                                            value="user"
+                                            <?= $user['role'] === 'user' ? 'selected' : '' ?>>
+                                            User
+                                        </option>
 
-                                </select>
-                            </td>
+                                        <option
+                                            value="organizer"
+                                            <?= $user['role'] === 'organizer' ? 'selected' : '' ?>>
+                                            Organizer
+                                        </option>
 
-                            <td>
-                                <select
-                                    name="status"
-                                    class="form-select form-select-sm"
-                                    form="<?= $formId ?>">
+                                        <option
+                                            value="admin"
+                                            <?= $user['role'] === 'admin' ? 'selected' : '' ?>>
+                                            Admin
+                                        </option>
 
-                                    <option
-                                        value="Überprüfung"
-                                        <?= $user['status'] === 'Überprüfung' ? 'selected' : '' ?>>
-                                        Überprüfung
-                                    </option>
+                                    </select>
+                                </td>
 
-                                    <option
-                                        value="bestätigt"
-                                        <?= $user['status'] === 'bestätigt' ? 'selected' : '' ?>>
-                                        Bestätigt
-                                    </option>
+                                <td>
+                                    <select
+                                        name="status"
+                                        class="form-select form-select-sm"
+                                        form="<?= $formId ?>">
 
-                                    <option
-                                        value="Bearbeitung"
-                                        <?= $user['status'] === 'Bearbeitung' ? 'selected' : '' ?>>
-                                        Bearbeitung
-                                    </option>
+                                        <option
+                                            value="Überprüfung"
+                                            <?= $user['status'] === 'Überprüfung' ? 'selected' : '' ?>>
+                                            Überprüfung
+                                        </option>
 
-                                    <option
-                                        value="abgelehnt"
-                                        <?= $user['status'] === 'abgelehnt' ? 'selected' : '' ?>>
-                                        Abgelehnt
-                                    </option>
+                                        <option
+                                            value="bestätigt"
+                                            <?= $user['status'] === 'bestätigt' ? 'selected' : '' ?>>
+                                            Bestätigt
+                                        </option>
 
-                                </select>
-                            </td>
+                                        <option
+                                            value="Bearbeitung"
+                                            <?= $user['status'] === 'Bearbeitung' ? 'selected' : '' ?>>
+                                            Bearbeitung
+                                        </option>
+
+                                        <option
+                                            value="abgelehnt"
+                                            <?= $user['status'] === 'abgelehnt' ? 'selected' : '' ?>>
+                                            Abgelehnt
+                                        </option>
+
+                                    </select>
+                                </td>
+
+                            <?php endif; ?>
 
                             <td>
                                 <?= htmlspecialchars($user['created_at']) ?>
                             </td>
-
+                            
                             <td>
+                            <?php if ((int)$user['user_id'] !== (int)$_SESSION['user_id']): ?>
 
                                 <form
                                     id="<?= $formId ?>"
@@ -134,6 +148,13 @@
 
                                 </form>
 
+                            <?php else: ?>
+
+                                <span class="text-muted">
+                                    Eigener Account
+                                </span>
+
+                            <?php endif; ?>
                             </td>
 
                         </tr>
