@@ -54,8 +54,6 @@ if (session_status() === PHP_SESSION_NONE) {
                 Events
         </a>
 
-<!-- EVENT ERSTELLEN BUTTON -->
-
         <a class="nav-link"
             href="/event-management-system/index.php?page=logout">
                 Logout

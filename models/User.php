@@ -29,7 +29,7 @@ class User
         string $email,
         string $passwordHash,
         string $role = 'user',
-        string $status = 'Prüfung'
+        string $status = 'Überprüfung'
     ): bool {
         $stmt = $this->pdo->prepare(
             "INSERT INTO users
@@ -95,6 +95,77 @@ class User
             'status' => $status,
             'user_id' => $userId
         ]);
+    }
+
+    public function findById(int $userId): array|false {
+        $stmt = $this->pdo->prepare(
+            "SELECT
+                user_id,
+                username,
+                email,
+                role,
+                status,
+                created_at
+            FROM users
+            WHERE user_id = :user_id"
+        );
+
+        $stmt->execute([
+            'user_id' => $userId
+        ]);
+
+        return $stmt->fetch();
+    }
+
+    public function updateProfile(
+        int $userId,
+        string $username,
+        string $email
+    ): bool {
+        $stmt = $this->pdo->prepare(
+            "UPDATE users
+            SET
+                username = :username,
+                email = :email
+            WHERE user_id = :user_id"
+        );
+
+        return $stmt->execute([
+            'username' => $username,
+            'email' => $email,
+            'user_id' => $userId
+        ]);
+    }
+
+    public function updatePassword(
+        int $userId,
+        string $passwordHash
+    ): bool {
+        $stmt = $this->pdo->prepare(
+            "UPDATE users
+            SET password_hash = :password_hash
+            WHERE user_id = :user_id"
+        );
+
+        return $stmt->execute([
+            'password_hash' => $passwordHash,
+            'user_id' => $userId
+        ]);
+    }
+
+    public function getStatistics(): array {
+        $stmt = $this->pdo->prepare(
+            "SELECT
+                COUNT(*) AS total,
+                SUM(role = 'user') AS users,
+                SUM(role = 'organizer') AS organizers,
+                SUM(role = 'admin') AS admins
+            FROM users"
+        );
+
+        $stmt->execute();
+
+        return $stmt->fetch();
     }
 
 }

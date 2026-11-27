@@ -39,7 +39,7 @@ class EventController
 
         $userId = (int) $_SESSION['user_id'];
 
-        $interestedEventIds = $this->interestModel->findEventIdsByUser($userId);
+        $interestedEventIds = array_map('intval', $this->interestModel->findEventIdsByUser($userId));
         $registeredEventIds = array_map('intval', $this->registrationModel->findEventIdsByUser($userId));
 
         require __DIR__ . '/../views/events/list.php';
@@ -154,6 +154,16 @@ class EventController
             exit;
         }
 
+        $from = $_GET['from'] ?? 'list';
+
+        if (!in_array(
+            $from,
+            ['list', 'my-events'],
+            true
+        )) {
+            $from = 'list';
+        }
+
         $userId = (int) $_SESSION['user_id'];
 
         $isInterested = $this->interestModel->exists(
@@ -165,6 +175,12 @@ class EventController
             $userId,
             $eventId
         );
+
+        $interestCount =
+            $this->interestModel->countByEvent($eventId);
+
+        $registrationCount =
+            $this->registrationModel->countByEvent($eventId);
 
         require __DIR__ . '/../views/events/details.php';
     }
@@ -291,24 +307,22 @@ class EventController
     ): void {
         if (!in_array(
             $returnTo,
-            ['list', 'details'],
-            true
-        )) {
-            $returnTo = 'details';
+            ['list', 'details', 'my-events'],
+            true)) {
+                $returnTo = 'details';
         }
-
+            
         if ($returnTo === 'list') {
-            header(
-                'Location: /event-management-system/index.php?page=events'
-            );
+            header('Location: /event-management-system/index.php?page=events');
+                exit;
+        }
+                
+        if ($returnTo === 'my-events') {
+            header('Location: /event-management-system/index.php?page=my-events');
             exit;
         }
 
-        header(
-            'Location: /event-management-system/index.php?page=event-details&id='
-            . $eventId
-        );
-
+        header('Location: /event-management-system/index.php?page=event-details&id=' . $eventId);
         exit;
     }
 
@@ -336,13 +350,6 @@ class EventController
         }
 
         $returnTo = $_POST['return_to'] ?? 'details';
-
-        if (!in_array(
-            $returnTo,
-            ['list', 'details'],
-            true)) {
-            $returnTo = 'details';
-        }
 
         $event = $this->eventModel->findById($eventId);
 
@@ -389,14 +396,6 @@ class EventController
         }
 
         $returnTo = $_POST['return_to'] ?? 'details';
-
-        if (!in_array(
-            $returnTo,
-            ['list', 'details'],
-            true
-        )) {
-            $returnTo = 'details';
-        }
 
         $userId = (int) $_SESSION['user_id'];
 

@@ -5,9 +5,13 @@ declare(strict_types=1);
 class AdminController
 {
     private User $userModel;
+    private Event $eventModel;
 
-    public function __construct(User $userModel) {
-        $this->userModel = $userModel;
+    public function __construct(
+        User $userModel,
+        Event $eventModel) {
+            $this->userModel = $userModel;
+            $this->eventModel = $eventModel;
     }
 
     private function requireAdmin(): void {
@@ -35,6 +39,12 @@ class AdminController
 
     public function dashboard(): void {
         $this->requireAdmin();
+
+        $userStatistics =
+            $this->userModel->getStatistics();
+
+        $eventCount =
+            $this->eventModel->countAll();
 
         require __DIR__ . '/../views/admin/dashboard.php';
     }

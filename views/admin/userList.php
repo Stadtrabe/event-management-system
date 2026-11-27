@@ -124,7 +124,10 @@
                             <?php endif; ?>
 
                             <td>
-                                <?= htmlspecialchars($user['created_at']) ?>
+                                <?= date(
+                                    'd.m.Y, H:i',
+                                    strtotime($user['created_at'])
+                                ) ?> Uhr
                             </td>
                             
                             <td>

@@ -4,6 +4,9 @@
 /** @var array $event */
 /** @var array $isInterested */
 /** @var array $isRegistered */
+/** @var array $from */
+/** @var int $interestCount */
+/** @var int $registrationCount */
 
 
 require_once __DIR__ . '/../layout/header.php'; ?>
@@ -58,6 +61,25 @@ require_once __DIR__ . '/../layout/header.php'; ?>
                 <?= htmlspecialchars($event['organizer_name']) ?>
             </p>
 
+            <div class="d-flex gap-4 mb-3">
+
+                <div>
+                    <i class="bi bi-star-fill nav-profil-icon"></i>
+                    <strong>
+                        <?= $interestCount ?>
+                    </strong>
+                    interessiert
+                </div>
+
+                <div>
+                    <i class="bi bi-check-circle-fill nav-profil-icon"></i>
+                    <strong>
+                        <?= $registrationCount ?>
+                    </strong>
+                    angemeldet
+                </div>
+
+            </div>
             <p>
                 <strong>Beschreibung:</strong><br>
 
@@ -211,7 +233,10 @@ require_once __DIR__ . '/../layout/header.php'; ?>
     <?php endif; ?>
 
     <a
-        href="/event-management-system/index.php?page=events"
+        href="<?= $from === 'my-events'
+            ? '/event-management-system/index.php?page=my-events'
+            : '/event-management-system/index.php?page=events'
+        ?>"
         class="btn btn-outline-secondary mt-3">
         Zurück zur Übersicht
     </a>

@@ -52,6 +52,7 @@ class AuthController
                 if ($existingUser) {
                     $errors[] = 'Diese E-Mail-Adresse ist bereits registriert.';
                 }
+
             }
 
             if (empty($errors)) {
@@ -147,7 +148,7 @@ class AuthController
                 }
 
                 header(
-                    'Location: /event-management-system/index.php?page=events'
+                    'Location: /event-management-system/index.php?page=home'
                 );
                 exit;
             }

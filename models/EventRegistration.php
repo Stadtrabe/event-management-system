@@ -109,4 +109,45 @@ class EventRegistration
             PDO::FETCH_COLUMN
         );
     }
+
+    public function findEventsByUser(int $userId): array {
+        $stmt = $this->pdo->prepare(
+            "SELECT
+                events.event_id,
+                events.title,
+                events.location,
+                events.event_start,
+                events.event_end,
+                users.username AS organizer_name,
+                event_registration.created_at AS registered_at
+            FROM event_registration
+            INNER JOIN events
+                ON event_registration.event_id = events.event_id
+            INNER JOIN users
+                ON events.organizer_id = users.user_id
+            WHERE event_registration.user_id = :user_id
+            ORDER BY events.event_start ASC"
+        );
+
+        $stmt->execute([
+            'user_id' => $userId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+    public function countByEvent(int $eventId): int{
+        $stmt = $this->pdo->prepare(
+            "SELECT COUNT(*)
+            FROM event_registration
+            WHERE event_id = :event_id"
+        );
+
+        $stmt->execute([
+            'event_id' => $eventId
+        ]);
+
+        return (int) $stmt->fetchColumn();
+    }
+
 }

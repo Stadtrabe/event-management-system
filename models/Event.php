@@ -126,4 +126,16 @@ class Event
             'event_end' => $eventEnd
         ]);
     }
+
+    public function countAll(): int
+    {
+        $stmt = $this->pdo->prepare(
+            "SELECT COUNT(*)
+            FROM events"
+        );
+
+        $stmt->execute();
+
+        return (int) $stmt->fetchColumn();
+    }
 }

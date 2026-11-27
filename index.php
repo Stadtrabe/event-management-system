@@ -12,6 +12,7 @@ require_once __DIR__ . '/models/EventRegistration.php';
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
 require_once __DIR__ . '/controllers/EventController.php';
+require_once __DIR__ . '/controllers/UserController.php';
 
 $userModel = new User($pdo);
 $eventModel = new Event($pdo);
@@ -19,12 +20,17 @@ $interestModel = new Interest($pdo);
 $registrationModel = new EventRegistration($pdo);
 
 $authController = new AuthController($userModel);
-$adminController = new AdminController($userModel);
+$adminController = new AdminController(
+    $userModel,
+    $eventModel);
 $eventController = new EventController(
     $eventModel,
     $interestModel,
-    $registrationModel
-);
+    $registrationModel);
+$userController = new UserController(
+    $userModel,
+    $interestModel,
+    $registrationModel);
 
 $page = $_GET['page'] ?? 'home';
 
@@ -49,7 +55,11 @@ switch ($page) {
         break;
 
     case 'profile':
-        require __DIR__ . '/views/user/profile.php';
+        $userController->profile();
+        break;
+
+    case 'my-events':
+        $userController->myEvents();
         break;
 
 # events        

@@ -99,8 +99,8 @@ require_once __DIR__ . '/../layout/header.php'; ?>
                             <td>
 
                         <!-- DETAILS -->
-                                <a 
-                                href="/event-management-system/index.php?page=event-details&id=<?= (int) $event['event_id'] ?>"
+                                <a
+                                href="/event-management-system/index.php?page=event-details&id=<?= (int) $event['event_id'] ?>&from=list"
                                     class="btn btn-gold btn-sm"
                                     title="Veranstaltungsdetails anzeigen">
                                     <i class="bi bi-info-circle"></i>
@@ -179,7 +179,7 @@ require_once __DIR__ . '/../layout/header.php'; ?>
                                         <button
                                             type="submit"
                                             class="btn btn-gold btn-sm"
-                                            title="Anmeldemarkierungentfernen">
+                                            title="Anmeldemarkierung entfernen">
                                             <i class="bi bi-check-circle-fill"></i>
                                         </button>
                                     </form>
@@ -202,7 +202,7 @@ require_once __DIR__ . '/../layout/header.php'; ?>
                                             <button
                                             type="submit"
                                             class="btn btn-outline-gold btn-sm"
-                                            title="Als angemeldet markieren.">
+                                            title="Als angemeldet markieren">
                                             <i class="bi bi-check-circle"></i>
                                         </button>
                                     </form>

@@ -9,6 +9,12 @@
         Willkommen beim Event Management System.
     </p>
 
+    <a
+        href='/event-management-system/index.php?page=events'
+        class="btn btn-gold mt-3">
+        Veranstaltungen
+    </a>
+
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
